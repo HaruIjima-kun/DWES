@@ -1,0 +1,77 @@
+/* 
+******************************                   ******************************
+****************************** Estilos Index.php ******************************
+******************************                   ******************************
+*/
+
+#index {
+    background-color: #232323;
+}
+
+#capaCentrada{
+    margin: auto;
+    padding: auto;
+    background-color: gray;
+    border-radius: 5px;
+    height: 150px;
+    width: 300px;
+}
+
+.posicion_formulario{
+    margin-top: 150px;
+    text-align: center;
+    line-height: 50px;
+}
+
+#cerrar_sesion{
+    margin-top: 150px;
+    text-align: center;
+    line-height: 150px;
+
+}
+
+/*
+******************************                        ******************************
+****************************** Estilos aplicacion.php ******************************
+******************************                        ******************************
+*/
+
+body{
+    background-color: #232323;
+}
+
+h1{
+    text-align: center;
+}
+
+#centrar{
+    height: auto;
+    background-color: gray;
+    border: 2px solid black;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+div#form_subida{
+    text-align: center;
+    margin-top: 50px;
+    width: 400px;
+    float:left;
+}
+
+div#lista_canciones{
+    margin-top: 50px;
+    width: 775px;
+    float: right;
+    padding-right: 25px;
+    text-align: right;
+}
+
+ul li{
+    list-style: none;
+}
+
+div#lista_Categoria{
+    float: bottom;
+    padding-left: 50px;
+}
