@@ -1,0 +1,31 @@
+/* 
+******************************                   ******************************
+************************** Estilos iniciarSesión.php **************************
+******************************                   ******************************
+*/
+
+#index {
+    background-color: #232323;
+}
+
+#capaCentrada{
+    margin: auto;
+    padding: auto;
+    background-color: gray;
+    border-radius: 5px;
+    height: 150px;
+    width: 300px;
+}
+
+.posicion_formulario{
+    margin-top: 150px;
+    text-align: center;
+    line-height: 50px;
+}
+
+#cerrar_sesion{
+    margin-top: 150px;
+    text-align: center;
+    line-height: 150px;
+
+}
