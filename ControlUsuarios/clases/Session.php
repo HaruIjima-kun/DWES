@@ -10,7 +10,7 @@ class Session {
                 session_name($nombre);
             }
             session_start();
-            $this->_control();
+            //$this->_control();
         }
         self::$iniciada = true;
     }

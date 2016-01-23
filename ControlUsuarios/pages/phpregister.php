@@ -39,7 +39,7 @@ if ($sqlResultado[0] == 0) {
     $usuario = new Usuario($email, $passEncriptada, $alias);
     $sesion->setUser($usuario);
     $gestor->insert($usuario);
-    $sesion->sendRedirect("../oauth/envioCorreo.php");
+    $sesion->sendRedirect("../oauth/solicitar.php");
     echo "<br/> Usuario introducido en la base de datos satisfactoriamente.";
 } else {
     echo "<br/>Usuario ya registrado.";

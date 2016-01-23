@@ -1,4 +1,5 @@
 <?php
+require '../clases/AutoCarga.php';
 
 $sesion = new Session();
 session_start();

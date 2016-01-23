@@ -4,7 +4,7 @@ class Usuario {
 
     private $email, $clave, $alias, $fechaalta, $activo, $administrador, $personal, $avatar;
 
-    function __construct($email, $clave, $alias = "", $fechaalta = "", $administrador = "0", $personal = "0", $activo = "0", $avatar = "../dist/img/avatar2.png") {
+    function __construct($email = "", $clave = "", $alias = "", $fechaalta = "", $administrador = "0", $personal = "0", $activo = "0", $avatar = "../dist/img/avatar2.png") {
         $this->email = $email;
         $this->clave = $clave;
         $this->alias = $alias;

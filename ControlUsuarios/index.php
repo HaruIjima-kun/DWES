@@ -30,7 +30,7 @@ $sesion = new Session();
                 <div class="card"></div>
                 <div class="card">
                     <h1 class="title">Login</h1>
-                    <form id="formulario_login" action="pages/phpLogin.php" method="post" autocomplete="off">
+                    <form id="formulario_login" action="pages/phplogin.php" method="post" autocomplete="off">
                         <div class="input-container">
                             <input type="text" id="user" name="user" required="required" autocomplete=""/>
                             <label for="user">Usuario</label>
@@ -56,22 +56,22 @@ $sesion = new Session();
                     </h1>
                     <form id="formulario_register" action="pages/phpRegister.php" method="post" autocomplete="off">
                         <div class="input-container">
-                            <input type="text" id="email" name="email" required="required" autocomplete=""/>
+                            <input type="text" id="email" name="email" required="required"/>
                             <label for="email">Email</label>
                             <div class="bar"></div>
                         </div>
                         <div class="input-container">
-                            <input type="password" id="password" name="password" required="required" autocomplete=""/>
+                            <input type="password" id="password" name="password" required="required"/>
                             <label for="Password">Contraseña</label>
                             <div class="bar"></div>
                         </div>
                         <div class="input-container">
-                            <input type="password" id="repeat_password" required="required" autocomplete=""/>
-                            <label for="repeat_password">Repetir contraseña</label>
+                            <input type="password" id="confirm_password" required="required"/>
+                            <label for="confirm_password">Repetir contraseña</label>
                             <div class="bar"></div>
                         </div>
                         <div class="button-container">
-                            <button><span>Siguiente</span></button>
+                            <button type="submit" id="boton_registrar"><span>Siguiente</span></button>
                         </div>
                         <input type="hidden" name="procedencia" id="procedencia" value="registro" />
                         <input type="hidden" name="destino" id="destino" value="registro" />
@@ -87,7 +87,8 @@ $sesion = new Session();
         ?>
         <!-- Portfolio--><a id="portfolio" href="" title="View my portfolio!"><i class="fa fa-link"></i></a>
         <!-- CodePen--><a id="codepen" href="" title="Follow me!"><i class="fa fa-codepen"></i></a>
-        <script src='js/jquery.min.js'></script>
+        <!-- <script src='js/jquery.min.js'></script> -->
+        <script src='js/jquery-1.12.0.js'></script>
         <script src="js/index.js"></script>
 
     </body>

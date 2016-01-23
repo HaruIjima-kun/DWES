@@ -97,10 +97,15 @@ if ($subir->upload()) {
     //echo 'Archivo no subido';
 }
 
+/*
+ * Preparamos el objeto con los daots nuevos para actualizar el usuario. 
+*/
 $usuario = new Usuario($emailNuevo, $passEncriptada, $aliasNuevo, $fechaalta, $admin, $personal, $activo, $ruta_nombre_archivo);
 //echo $usuario->getJson();
 //echo "<br/><br/>antes de setear<br/><br/>";
 $gestor->setForAdmin($usuario, $pkAlias);
+
+
 
 
 $sqlUsuario = $gestor->get($aliasNuevo);

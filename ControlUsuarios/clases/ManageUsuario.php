@@ -29,12 +29,12 @@ class ManageUsuario {
         return $this->bd->count($this->tabla, $condicion, $parametros);
     }
 
-    function delete($alias) {
+    function delete($email) {
         /*
          * Debe borrar el Usuario que tenga el alias pasado
          */
         $parametros = array();
-        $parametros["alias"] = $alias;
+        $parametros["email"] = $email;
 
         return $this->bd->delete($this->tabla, $parametros);
     }
@@ -55,20 +55,19 @@ class ManageUsuario {
          * Update de todos los campos de los Usuario con privilegios admin y usará el alias como el where del update
          */
         
-        echo "ha entrado en setear";
         $parametrosSet = array();
         $parametrosWhere = array();
 
-        echo "<br/>" . $parametrosSet['email'] = $usuario->getEmail();
-        echo "<br/>" .$parametrosSet['clave'] = $usuario->getClave();
-        echo "<br/>" .$parametrosSet['alias'] = $usuario->getAlias();
-        echo "<br/>" .$parametrosSet['fechaAlta'] = $usuario->getFechaalta();
-        echo "<br/>" .$parametrosSet['admin'] = $usuario->getAdministrador();
-        echo "<br/>" .$parametrosSet['personal'] = $usuario->getPersonal();
-        echo "<br/>" .$parametrosSet['activo'] = $usuario->getActivo();
-        echo "<br/>" .$parametrosSet['avatar'] = $usuario->getAvatar();
+        $parametrosSet['email'] = $usuario->getEmail();
+        $parametrosSet['clave'] = $usuario->getClave();
+        $parametrosSet['alias'] = $usuario->getAlias();
+        $parametrosSet['fechaAlta'] = $usuario->getFechaalta();
+        $parametrosSet['admin'] = $usuario->getAdministrador();
+        $parametrosSet['personal'] = $usuario->getPersonal();
+        $parametrosSet['activo'] = $usuario->getActivo();
+        $parametrosSet['avatar'] = $usuario->getAvatar();
         
-        echo "<br/><br/>En Manage: " .$parametrosWhere['alias'] = $pkAlias;
+        $parametrosWhere['alias'] = $pkAlias;
 
         return $this->bd->update($this->tabla, $parametrosSet, $parametrosWhere);
     }
@@ -109,15 +108,15 @@ class ManageUsuario {
     function getList($pagina = 1, $orden = "", $nrpp = Constants::NRPP) {
         //Valor predeterminado -> Constante, si se lo paso, coge el valor.
 
-        $ordenPredeterminado = "$orden, alias, email";
+        $ordenPredeterminado = "$orden, email, alias, fechaAlta, admin, personal, activo, avatar";
 
         if ($orden === "" || $orden === null) {
-            $ordenPredeterminado = "alias, email";
+            $ordenPredeterminado = "email, alias, fechaAlta, admin, personal, activo, avatar";
         }
 
         $registroInicial = ($pagina - 1) * $nrpp;
 
-        $this->bd->select($this->tabla, "*", "1=1", array(), $ordenPredeterminado, " $registroInicial, $nrpp");
+        $this->bd->select($this->tabla, "*", "1=1", array(), $ordenPredeterminado, "$registroInicial, $nrpp");
 
         $r = array();
 
@@ -127,8 +126,7 @@ class ManageUsuario {
 
             $r[] = $usuario;
         }
-
-        return $r; //Devuelve un array de directores.
+        return $r;//Devuelve un array de Usuarios
     }
 
     function getValuesSelect() {

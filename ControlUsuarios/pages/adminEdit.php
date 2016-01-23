@@ -3,14 +3,38 @@ require '../clases/AutoCarga.php';
 
 $sesion = new Session();
 
+if(!$sesion){
+    header( "Location:../index.php");
+} 
+
 $usuario = $sesion->getUser();
 
-$alias = $usuario->getAlias();
-$avatar = $usuario->getAvatar();
-$email = $usuario->getEmail();
-$admin = $usuario->getAdministrador();
-$personal = $usuario->getPersonal();
-$activo = $usuario->getActivo();
+$pkAlias = $usuario->getAlias();
+$pkAvatar = $usuario->getAvatar();
+$pkEmail = $usuario->getEmail();
+
+if (isset($_POST["editTable"])){
+    $bd = new DataBase();
+    $gestor = new ManageUsuario($bd);
+    
+    $aliasTabla = Request::post("editTable");
+    
+    $userEdit = $gestor->get($aliasTabla);
+    
+    $alias = $userEdit->getAlias();
+    $avatar = $userEdit->getAvatar();
+    $email = $userEdit->getEmail();
+    $admin = $userEdit->getAdministrador();
+    $personal = $userEdit->getPersonal();
+    $activo = $userEdit->getActivo();
+} else {
+    $alias = $usuario->getAlias();
+    $avatar = $usuario->getAvatar();
+    $email = $usuario->getEmail();
+    $admin = $usuario->getAdministrador();
+    $personal = $usuario->getPersonal();
+    $activo = $usuario->getActivo();
+}
 
 function seleccionar($parametro) {
     if ($parametro == 1) {
@@ -70,18 +94,18 @@ function seleccionar($parametro) {
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="<?php echo $avatar ?>" class="user-image" alt="User Image">
+                                    <img src="<?php echo $pkAvatar ?>" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"><?php echo $alias ?></span>
+                                    <span class="hidden-xs"><?php echo $pkAlias ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="<?php echo $avatar ?>" class="img-circle" alt="User Image">
+                                        <img src="<?php echo $pkAvatar ?>" class="img-circle" alt="User Image">
                                         <p>
-                                            <?php echo $alias ?>
+                                            <?php echo $pkAlias ?>
                                             <small>
-                                                <?php echo $email ?>
+                                                <?php echo $pkEmail ?>
                                             </small>
                                         </p>
 
@@ -120,10 +144,10 @@ function seleccionar($parametro) {
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo $avatar ?>" class="img-circle" alt="User Image">
+                            <img src="<?php echo $pkAvatar ?>" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p><?php echo $alias ?></p>
+                            <p><?php echo $pkAlias ?></p>
                             <!-- Status -->
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>

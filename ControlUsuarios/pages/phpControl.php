@@ -11,7 +11,6 @@ $sesion = new Session();
  */
 
 $usuario = $sesion->getUser();
-echo $usuario->getAlias();
 
 $admin = $usuario->getAdministrador();
 $personal = $usuario->getPersonal();

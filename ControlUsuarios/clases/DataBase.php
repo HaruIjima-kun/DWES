@@ -90,11 +90,6 @@ class DataBase {
         }
 
         $camposWhere = substr($camposWhere, 0, -1);
-
-        $sql = "delete from $tabla where $camposWhere";
-
-//        echo "<br/> delete: $sql <br/>";
-
         if ($this->send($sql, $parametros)) {
             return $this->getCount();
         }
@@ -110,7 +105,6 @@ class DataBase {
         }
         $campos = substr($campos, 0, -1);
         $valores = substr($valores, 0, -1);
-        $sql = "insert into $tabla ($campos) values ($valores)";
 
         if ($this->send($sql, $parametros)) {
             if ($auto) {
@@ -143,9 +137,6 @@ class DataBase {
 
         //$camposWhere .= "1=1"; Esto nunca falla
         $camposWhere = substr($camposWhere, 0, -4);
-
-        echo "<br/>" . $sql = "update $tabla set $camposSet where $camposWhere";
-//        echo "<br/>SQL en DATABASE para UPDATE: " . $sql ."<br/>";
 
         if ($this->send($sql, $parametros)) {
             return $this->getCount();
