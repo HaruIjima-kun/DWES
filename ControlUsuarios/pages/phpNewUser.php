@@ -44,15 +44,13 @@ $passEncriptada = sha1($pass);
 /* * ** Insercción del usuario en la base de datos *** */
 $nombre_archivo = $_FILES["avatar"]["name"]; //Coger avatar de $_FILES
 
-$destino = "../dist/img/";
+$destino = "../img/";
 
 if ($nombre_archivo == null) {
     $nombre_archivo = "avatar04.jpg";
 }
 
-
-echo $ruta_nombre_archivo = $destino . $nombre_archivo;
-
+$ruta_nombre_archivo = $destino . $nombre_archivo;
 
 $subir = new FileUpload("avatar"); // Crear objeto FileUpload
 $subir->setNombre($nombre_archivo); // Seteamos el nombre del archivo
@@ -79,10 +77,6 @@ if ($sqlResultado[0] == 0) {
 
     $gestor->insert($usuario);
     $sesion->sendRedirect("adminNew.php");
-    echo "<br/> Usuario introducido en la base de datos satisfactoriamente.";
 } else {
-    echo "<br/>Usuario ya registrado.";
     $sesion->sendRedirect("adminNew.php");
-    /* $sesion->destroy();
-      $sesion->sendRedirect("../index.php"); */
 }

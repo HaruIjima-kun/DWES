@@ -10,6 +10,8 @@
  * Aquí se debería de implementar lo de enviar el correo de activación.
  */
 
+require '../clases/Google/autoload.php';
+require '../clases/PHPMailer.php';
 require '../clases/AutoCarga.php';
 
 $bd = new DataBase();
@@ -39,10 +41,29 @@ if ($sqlResultado[0] == 0) {
     $usuario = new Usuario($email, $passEncriptada, $alias);
     $sesion->setUser($usuario);
     $gestor->insert($usuario);
-    $sesion->sendRedirect("../oauth/solicitar.php");
-    echo "<br/> Usuario introducido en la base de datos satisfactoriamente.";
+
+    $claveActivacion = sha1($password + Constants::SEMILLA);
+
+    $correo = new Correo();
+
+    $destino = $email;
+
+    $asunto = "Activación de su cuenta";
+    $mensaje = "Este es un correo de activación.
+    
+    Diríjase a la siguiente URL para activar su cuenta: https://login-usuario-haruijima-kun.c9users.io/pages/activateUser.php?activate=$claveActivacion&email=$email";
+
+
+    $correo->setDestino($destino);
+    $correo->setAsunto($asunto);
+    $correo->setMensaje($mensaje);
+
+    $correo->send();
 } else {
-    echo "<br/>Usuario ya registrado.";
-    /* $sesion->destroy();
-      $sesion->sendRedirect("../index.php"); */
+    $sesion->destroy();
+    $sesion->sendRedirect("../index.php");
 }
+
+
+    
+    

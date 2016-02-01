@@ -2,15 +2,52 @@
 require '../clases/AutoCarga.php';
 
 $sesion = new Session();
+$bd = new DataBase();
+$gestor = new ManageUsuario($bd);
+
+if (!$sesion) {
+    header("Location:../index.php");
+}
 
 $usuario = $sesion->getUser();
+$aliasSesion = $usuario->getAlias();
+$avatarSesion = $usuario->getAvatar();
+$emailSesion = $usuario->getEmail();
 
-$alias = $usuario->getAlias();
-$avatar = $usuario->getAvatar();
-$email = $usuario->getEmail();
-$admin = $usuario->getAdministrador();
-$personal = $usuario->getPersonal();
-$activo = $usuario->getActivo();
+$procedencia = Request::post("procedencia"); // Obtiene la procedencia del editar
+
+if (isset($_POST["editTable"]) && $procedencia === "editView") {
+    /* Si la procedencia es editarView y editTable de la variable $_POST está seteada (el email del usuario a editar)
+      cogemos los datos de ese usuario para posteriormente mostrarlos en los campos del formulario
+     */
+    $aliasTabla = Request::post("editTable");
+
+    $sesion->set("procedencia", $procedencia);
+
+    $userEdit = $gestor->get($aliasTabla); // Obtenemos un objeto de tipo usuario de la base de datos con el alias pasado.
+    // Obtenemos los datos correspondientes del usuario devuelto por la consulta de la base de datos.
+    $alias = $userEdit->getAlias();
+    $avatar = $userEdit->getAvatar();
+    $email = $userEdit->getEmail();
+    $fechaalta = $userEdit->getFechaalta();
+    $admin = $userEdit->getAdministrador();
+    $personal = $userEdit->getPersonal();
+    $activo = $userEdit->getActivo();
+} else {
+    // Estos campos son del usuario actual con la sesión iniciada
+
+    $pkAlias = $usuario->getAlias();
+    $alias = $usuario->getAlias();
+    $avatar = $usuario->getAvatar();
+    $email = $usuario->getEmail();
+    $admin = $usuario->getAdministrador();
+    $personal = $usuario->getPersonal();
+    $activo = $usuario->getActivo();
+}
+
+/*
+  Esta función convierte los parámetros 1 y 0 devueltos por la base de datos en la propiedad checked
+ */
 
 function seleccionar($parametro) {
     if ($parametro == 1) {
@@ -29,17 +66,17 @@ function seleccionar($parametro) {
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
-        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="../bootstrap/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
         <!-- Ionicons -->
-        <link rel="stylesheet" href="../bootstrap/css/ionicons.min.css">
+        <link rel="stylesheet" href="../css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="../css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="../bootstrap/css/estilosPersonalizados.css">
+        <link rel="stylesheet" href="../css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="../css/estilosPersonalizados.css">
 
     </head>
 
@@ -70,18 +107,18 @@ function seleccionar($parametro) {
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="<?php echo $avatar ?>" class="user-image" alt="User Image">
+                                    <img src="<?php echo $avatarSesion ?>" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"><?php echo $alias ?></span>
+                                    <span class="hidden-xs"><?php echo $aliasSesion ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="<?php echo $avatar ?>" class="img-circle" alt="User Image">
+                                        <img src="<?php echo $avatarSesion ?>" class="img-circle" alt="User Image">
                                         <p>
-                                            <?php echo $alias ?>
+                                            <?php echo $aliasSesion ?>
                                             <small>
-                                                <?php echo $email ?>
+                                                <?php echo $emailSesion ?>
                                             </small>
                                         </p>
 
@@ -89,7 +126,7 @@ function seleccionar($parametro) {
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <form action="#">
+                                            <form action="personalProfile.php">
                                                 <input type="submit" class="btn btn-default btn-flat" value="Perfil">
                                             </form>
                                             <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
@@ -120,10 +157,10 @@ function seleccionar($parametro) {
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo $avatar ?>" class="img-circle" alt="User Image">
+                            <img src="<?php echo $avatarSesion ?>" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p><?php echo $alias ?></p>
+                            <p><?php echo $aliasSesion ?></p>
                             <!-- Status -->
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
@@ -156,7 +193,7 @@ function seleccionar($parametro) {
                             <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li><a href="personalNew.php">Nuevo Usuario</a></li>
-                                <li><a href="adminView.php">Visualizar</a></li>
+                                <li><a href="personalView.php">Visualizar</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -171,7 +208,7 @@ function seleccionar($parametro) {
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        <?php echo $alias ?>
+                        <?php echo $aliasSesion ?>
                         <small>Editar perfil</small>
                     </h1>
                     <ol class="breadcrumb">
@@ -192,11 +229,11 @@ function seleccionar($parametro) {
                                     <h3 class="box-title">Datos de cuenta</h3>
                                 </div>
                                 <!-- /.box-header -->
-<!--                                <div class="alert alert-success alert-dismissable col-md-12" >
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                    <h4>	<i class="icon fa fa-check"></i> ¡Enorabuena!</h4>
-                                    Sus datos han sido modificados satisfactoriamente.
-                                </div>-->
+                                <!--                                <div class="alert alert-success alert-dismissable col-md-12" >
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                                    <h4>	<i class="icon fa fa-check"></i> ¡Enorabuena!</h4>
+                                                                    Sus datos han sido modificados satisfactoriamente.
+                                                                </div>-->
                                 <!-- form start -->
                                 <form role="form" action="phpUpdateUser.php" method="post" enctype="multipart/form-data">
                                     <div class="box-body form_nuevo">
@@ -221,16 +258,16 @@ function seleccionar($parametro) {
                                             <input type="file" id="avatarNuevo" name="avatarNuevo" accept="image/*">
                                         </div>
                                         <div class="checkbox checkbox_nuevo col-md-8">
-                                            <label>
-                                                <input id="check_admin" name="check_admin" type="checkbox" class="minimal" disabled=""> Administrador
+                                            <label for="check_admin" disabled="">
+                                                <input id="check_admin" name="check_admin" type="checkbox" class="minimal" disabled="">Administrador
                                             </label>
                                             <br/>
                                             <label>
-                                                <input id="check_personal" name="check_personal" type="checkbox" class="minimal" <?php seleccionar($personal) ?>> Personal
+                                                <input id="check_personal" name="check_personal" type="checkbox" class="minimal" <?php seleccionar($personal); ?> > Personal
                                             </label>
                                             <br/>
                                             <label>
-                                                <input id="check_activo" name="check_activo" type="checkbox" class="minimal" <?php seleccionar($activo) ?>> Activo
+                                                <input id="check_activo" name="check_activo" type="checkbox" class="minimal" <?php seleccionar($activo); ?> > Activo
                                             </label>
                                         </div>
                                         <input hidden="" type="text" id="pkAlias" name="pkAlias" value="<?php echo $alias ?>">
@@ -238,7 +275,7 @@ function seleccionar($parametro) {
                                     <!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-default boton_cancelar_form_nuevo">Cancelar</button>
+                                        <button type="reset" class="btn btn-default boton_cancelar_form_nuevo">Cancelar</button>
                                         <button type="submit" class="btn btn-primary">Guardar</button>
                                     </div>
                                 </form>
@@ -446,13 +483,13 @@ function seleccionar($parametro) {
         <!-- jQuery 2.1.4 -->
         <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
         <!-- Bootstrap 3.3.5 -->
-        <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
         <!-- FastClick -->
         <script src="../plugins/fastclick/fastclick.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="../dist/js/app.min.js"></script>
+        <script src="../js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
-        <script src="../dist/js/demo.js"></script>
+        <script src="../js/demo.js"></script>
     </body>
 
 </html>

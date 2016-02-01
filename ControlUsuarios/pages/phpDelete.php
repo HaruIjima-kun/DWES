@@ -1,13 +1,14 @@
-    <?php
-    require '../clases/AutoCarga.php';
-    $sesion = new Session();
+<?php
 
-    $bd = new DataBase();
-    $gestor = new ManageUsuario($bd);
+require '../clases/AutoCarga.php';
+$sesion = new Session();
 
-    $emailTabla = Request::post("deleteTable");
-    $procedencia = Request::post("procedencia");
+$bd = new DataBase();
+$gestor = new ManageUsuario($bd);
 
-    $userDelete = $gestor->delete($emailTabla);
+$emailTabla = Request::post("deleteTable");
+$procedencia = Request::post("procedencia");
 
-    $sesion->sendRedirect($procedencia . ".php");
+$userDelete = $gestor->delete($emailTabla);
+
+$sesion->sendRedirect($procedencia . ".php");

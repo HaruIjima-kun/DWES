@@ -31,7 +31,7 @@ if ($procedencia === "registro") {
      * si no existe, lo devuelve a la página del login, posteriormente sería interesante añadir
      * mensajes en el login si la contraseña no es correcta, si el usuario no existe...
      */
-    
+
     $existe = $gestor->count('alias like "' . $alias . '"');
 
     if ($existe == 1) {

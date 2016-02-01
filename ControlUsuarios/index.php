@@ -46,7 +46,7 @@ $sesion = new Session();
                         </div>
                         <div class="footer"><a href="#">¿Has olvidado tu contraseña?</a></div>
                         <input type="hidden" name="procedencia" id="procedencia" value="login" />
-                            <input type="hidden" name="destino" id="destino" value="login" />
+                        <input type="hidden" name="destino" id="destino" value="login" />
                     </form>
                 </div>
                 <div class="card alt">

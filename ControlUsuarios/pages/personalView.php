@@ -1,57 +1,28 @@
 <?php
+/*
+ * ESTE TENGO QUE MODIFICARLO PARA QUE FUNCIONE CON EL PHPUPDATE USER, MUY IMPORTANTE, ACUERDATE
+ */
 require '../clases/AutoCarga.php';
 
 $sesion = new Session();
-$bd = new DataBase();
-$gestor = new ManageUsuario($bd);
-
 if (!$sesion) {
     header("Location:../index.php");
 }
 
-$usuario = $sesion->getUser(); // Recoge el objeto usuario de la sesión
-$aliasSesion = $usuario->getAlias(); // Saca el alias del usuario de la sesión
-$avatarSesion = $usuario->getAvatar(); // Saca el avatar del usuario de la sesión
-$emailSesion = $usuario->getEmail(); // Saca el email del usuario de la sesión
+$usuario = $sesion->getUser();
+$alias = $usuario->getAlias();
+$avatar = $usuario->getAvatar();
+$email = $usuario->getEmail();
 
-$procedencia = Request::post("procedencia"); // Obtiene la procedencia del editar
+$bd = new DataBase();
+$gestor = new ManageUsuario($bd);
+$usuarios = $gestor->getListPersonal();
 
-if (isset($_POST["editTable"]) && $procedencia === "editView") {
-    /* Si la procedencia es editarView y editTable de la variable $_POST está seteada (el email del usuario a editar)
-      cogemos los datos de ese usuario para posteriormente mostrarlos en los campos del formulario
-     */
-    $aliasTabla = Request::post("editTable");
-
-    $sesion->set("procedencia", $procedencia);
-
-    $userEdit = $gestor->get($aliasTabla); // Obtenemos un objeto de tipo usuario de la base de datos con el alias pasado.
-    // Obtenemos los datos correspondientes del usuario devuelto por la consulta de la base de datos.
-    $alias = $userEdit->getAlias();
-    $avatar = $userEdit->getAvatar();
-    $email = $userEdit->getEmail();
-    $fechaalta = $userEdit->getFechaalta();
-    $admin = $userEdit->getAdministrador();
-    $personal = $userEdit->getPersonal();
-    $activo = $userEdit->getActivo();
-} else {
-    // Estos campos son del usuario actual con la sesión iniciada
-
-    $pkAlias = $usuario->getAlias();
-    $alias = $usuario->getAlias();
-    $avatar = $usuario->getAvatar();
-    $email = $usuario->getEmail();
-    $admin = $usuario->getAdministrador();
-    $personal = $usuario->getPersonal();
-    $activo = $usuario->getActivo();
-}
-
-/*
-  Esta función convierte los parámetros 1 y 0 devueltos por la base de datos en la propiedad checked
- */
-
-function seleccionar($parametro) {
-    if ($parametro == 1) {
-        echo 'checked="checked"';
+function translateBoolean($valor) {
+    if ($valor == 1) {
+        return "Si";
+    } else {
+        return "No";
     }
 }
 ?>
@@ -62,7 +33,7 @@ function seleccionar($parametro) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminUSERS - Editar</title>
+        <title>AdminLTE 2 | Data Tables</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
@@ -71,13 +42,20 @@ function seleccionar($parametro) {
         <link rel="stylesheet" href="../css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="../css/ionicons.min.css">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="../css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
-             folder instead of downloading all of them to reduce the load. -->
+                 folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="../css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="../css/estilosPersonalizados.css">
 
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -86,11 +64,11 @@ function seleccionar($parametro) {
             <header class="main-header">
 
                 <!-- Logo -->
-                <a href="adminProfile.php" class="logo">
+                <a href="personalProfile.php" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>A</b>LT</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Admin</b>USERS</span>
+                    <span class="logo-lg"><b>Personal</b>USERS</span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -107,18 +85,18 @@ function seleccionar($parametro) {
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="<?php echo $avatarSesion ?>" class="user-image" alt="User Image">
+                                    <img src="<?php echo $avatar ?>" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                    <span class="hidden-xs"><?php echo $aliasSesion ?></span>
+                                    <span class="hidden-xs"><?php echo $alias ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="<?php echo $avatarSesion ?>" class="img-circle" alt="User Image">
+                                        <img src="<?php echo $avatar ?>" class="img-circle" alt="User Image">
                                         <p>
-                                            <?php echo $aliasSesion ?>
+                                            <?php echo $alias ?>
                                             <small>
-                                                <?php echo $emailSesion ?>
+                                                <?php echo $email ?>
                                             </small>
                                         </p>
 
@@ -126,13 +104,13 @@ function seleccionar($parametro) {
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <form action="adminProfile.php">
+                                            <form action="personalProfile.php">
                                                 <input type="submit" class="btn btn-default btn-flat" value="Perfil">
                                             </form>
                                             <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
                                         </div>
                                         <div class="pull-right">
-                                            <form method="post" action="phplogout.php"  enctype="multipart/form-data">
+                                            <form method="post" action="phplogout.php" enctype="multipart/form-data">
                                                 <input type="submit" class="btn btn-default btn-flat" value="Cerrar sesión">
                                             </form>
                                             <!--<a href="#" class="btn btn-default btn-flat">Cerrar Sesión</a>-->
@@ -157,10 +135,12 @@ function seleccionar($parametro) {
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo $avatarSesion ?>" class="img-circle" alt="User Image">
+                            <img src="<?php echo $avatar ?>" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p><?php echo $aliasSesion ?></p>
+                            <p>
+                                <?php echo $alias ?>
+                            </p>
                             <!-- Status -->
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
@@ -185,15 +165,15 @@ function seleccionar($parametro) {
                         <li class="treeview">
                             <a href="#"><i class="fa fa-user"></i> <span>Perfil</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a href="adminProfile.php">Mi perfil</a></li>
-                                <li><a href="adminEdit.php">Editar</a></li>
+                                <li><a href="personalProfile.php">Mi perfil</a></li>
+                                <li><a href="personalEdit.php">Editar</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a href="adminNew.php">Nuevo Usuario</a></li>
-                                <li><a href="adminView.php">Visualizar</a></li>
+                                <li><a href="personalNew.php">Nuevo Usuario</a></li>
+                                <li><a href="personalView.php">Visualizar</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -208,92 +188,115 @@ function seleccionar($parametro) {
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        <?php echo $alias ?>
-                        <small>Editar perfil</small>
+                        Visualización de usuarios
+                        <small>Administración</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Usuarios</a></li>
-                        <li class="active">Editar</li>
+                        <li class="active">Visualizar</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-                        <!-- left column -->
-                        <div class="col-md-12">
-                            <!-- general form elements -->
-                            <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Datos de cuenta</h3>
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Lista de usuarios</h3>
                                 </div>
                                 <!-- /.box-header -->
-                                <!--                                <div class="alert alert-success alert-dismissable col-md-12" >
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                                    <h4>	<i class="icon fa fa-check"></i> ¡Enorabuena!</h4>
-                                                                    Sus datos han sido modificados satisfactoriamente.
-                                                                </div>-->
-                                <!-- form start -->
-                                <form role="form" action="phpUpdateUser.php" method="post" enctype="multipart/form-data">
-                                    <div class="box-body form_nuevo">
-                                        <div class="form-group col-md-4">
-                                            <label for="alias">Alias</label>
-                                            <input type="text" class="form-control" id="alias" name="aliasEdit" placeholder="Enter email" value="<?php echo $alias; ?>">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="exampleInputEmail1">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="emailEdit" name="emailEdit" placeholder="Enter email" value="<?php echo $email; ?>">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="exampleInputPassword1">Contraseña</label>
-                                            <input type="password" class="form-control" id="passwordEdit" name="passwordEdit" placeholder="Password">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="exampleInputPassword1">Confirmar contraseña</label>
-                                            <input type="password" id="passwordEdit2" class="form-control" id="passwordEdit2" placeholder="Password">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label for="avatarNuevo">Avatar</label>
-                                            <input type="file" id="avatarNuevo" name="avatarNuevo" accept="image/*">
-                                        </div>
-                                        <div class="checkbox checkbox_nuevo col-md-8">
-                                            <label>
-                                                <input id="check_admin" name="check_admin" type="checkbox" class="minimal" <?php seleccionar($admin); ?> > Administrador
-                                            </label>
-                                            <br/>
-                                            <label>
-                                                <input id="check_personal" name="check_personal" type="checkbox" class="minimal" <?php seleccionar($personal); ?> > Personal
-                                            </label>
-                                            <br/>
-                                            <label>
-                                                <input id="check_activo" name="check_activo" type="checkbox" class="minimal" <?php seleccionar($activo); ?> > Activo
-                                            </label>
-                                        </div>
+                                <div class="box-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Email</th>
+                                                <th>Alias</th>
+                                                <th>Fecha Alta</th>
+                                                <th>Administrador</th>
+                                                <th>Personal</th>
+                                                <th>Activo</th>
+                                                <th>Avatar</th>
+                                                <th collspan="2">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                        <input hidden="" type="text" id="pkAlias" name="pkAlias" value="<?php echo $alias; ?>"> 
-                                        <input hidden="" type="text" id="pkEmail" name="pkEmail" value="<?php echo $email; ?>">
-                                        <input hidden="" type="text" id="pkFechaAlta" name="pkFechaAlta" value="<?php echo $fechaalta; ?>">
-                                    </div>
-                                    <!-- /.box-body -->
+                                            <?php foreach ($usuarios as $key => $usuario) { ?>
 
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-default boton_cancelar_form_nuevo">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </form>
+                                                <tr>
+                                                    <td><?php echo $usuario->getEmail(); ?></td>
+                                                    <td><?php echo $usuario->getAlias(); ?></td>
+                                                    <td><?php echo $usuario->getFechaalta(); ?></td>
+                                                    <td>
+    <?php
+    $bool1 = $usuario->getAdministrador();
+    //$res1 = translateBoolean($bool1);
+    //echo $res1;
+    echo $bool1;
+    ?>
+                                                    </td>
+                                                    <td>
+    <?php
+    $bool2 = $usuario->getPersonal();
+    //$res2 = translateBoolean($bool2);
+    //echo $res2;
+    echo $bool2;
+    ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        $bool3 = $usuario->getActivo();
+                                                        //$res3 = translateBoolean($bool3);
+                                                        //echo $res3;
+                                                        echo $bool3;
+                                                        ?>
+                                                    </td>
+                                                    <td><?php echo $usuario->getAvatar(); ?></td>
+
+
+                                                    <td>
+                                                        <form action="personalEdit.php" method="post" enctype="multipart/form-data" class="">
+                                                            <input type="hidden" name="procedencia" value="editView"/>
+                                                            <button type="submit" value="<?php echo $usuario->getAlias(); ?>" class="editar" name="editTable"><i class="fa fa-pencil editar"></i></button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <form action="phpDelete.php" method="post" enctype="multipart/form-data" class="">
+                                                            <input type="hidden" name="procedencia" value="adminView"/>
+                                                            <button type="submit" value="<?php echo $usuario->getEmail(); ?>" class="borrar" name="deleteTable"><i class="fa fa-trash borrar"></i></button>
+
+                                                        </form> 
+                                                    </td>
+                                                </tr>
+<?php } ?>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Email</th>
+                                                <th>Alias</th>
+                                                <th>Fecha Alta</th>
+                                                <th>Administrador</th>
+                                                <th>Personal</th>
+                                                <th>Activo</th>
+                                                <th>Avatar</th>
+                                                <th collspan="2">Acciones</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
                             </div>
                             <!-- /.box -->
                         </div>
-
-                        <!--/.col (left) -->
-                        <!-- right column -->
+                        <!-- /.col -->
                     </div>
                     <!-- /.row -->
                 </section>
                 <!-- /.content -->
             </div>
-            <!-- Main Footer -->
+            <!-- /.content-wrapper -->
             <footer class="main-footer">
                 <!-- To the right -->
                 <div class="pull-right hidden-xs">
@@ -478,7 +481,7 @@ function seleccionar($parametro) {
             </aside>
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
-               immediately after the control sidebar -->
+                   immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
@@ -487,12 +490,32 @@ function seleccionar($parametro) {
         <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
         <!-- Bootstrap 3.3.5 -->
         <script src="../js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <!-- SlimScroll -->
+        <script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <!-- FastClick -->
         <script src="../plugins/fastclick/fastclick.min.js"></script>
         <!-- AdminLTE App -->
         <script src="../js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="../js/demo.js"></script>
+        <!-- page script -->
+        <script type="text/javascript" src="../js/confirmDelete.js"></script>
+        <script>
+            $(function () {
+                $("#example1").DataTable();
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
     </body>
 
 </html>

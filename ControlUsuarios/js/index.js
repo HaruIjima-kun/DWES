@@ -5,7 +5,7 @@ $('.toggle').on('click', function () {
 $('.close').on('click', function () {
     $('.container').stop().removeClass('active');
 });
-
+/*
 var email = document.getElementById("email");
 var password = document.getElementById("password");
 var confirm_password = document.getElementById("confirm_password");
@@ -36,5 +36,5 @@ function validarEmail() {
 
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
-
+*/
 

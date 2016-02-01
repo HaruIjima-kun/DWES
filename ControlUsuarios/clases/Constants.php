@@ -6,4 +6,8 @@ class Constants {
     const DBUSER = "haruijima_kun"; // Nombre del Usuario
     const DBPASSWORD = ""; // Contraseña del Usuario
     const NRPP = 10; //Número de registros por página.
+    
+    const FROM = "jamartinmolina@gmail.com";
+    const ALIAS = "Login Usuarios";
+    const SEMILLA = "aguasuenariolleva"; // Está mal puesto a posta.
 }

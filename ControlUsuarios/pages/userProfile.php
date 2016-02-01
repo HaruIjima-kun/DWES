@@ -19,17 +19,17 @@ $email = $usuario->getEmail();
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
-        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="../bootstrap/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
         <!-- Ionicons -->
-        <link rel="stylesheet" href="../bootstrap/css/ionicons.min.css">
+        <link rel="stylesheet" href="../css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="../css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="../bootstrap/css/estilosPersonalizados.css">
+        <link rel="stylesheet" href="../css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="../css/estilosPersonalizados.css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -125,14 +125,14 @@ $email = $usuario->getEmail();
                     </div>
 
                     <!-- search form (Optional) -->
-                    <form action="#" method="get" class="sidebar-form">
+                    <!--<form action="#" method="get" class="sidebar-form">
                         <div class="input-group">
                             <input type="text" name="q" class="form-control" placeholder="Buscar...">
                             <span class="input-group-btn">
                                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
                             </span>
                         </div>
-                    </form>
+                    </form>-->
                     <!-- /.search form -->
 
                     <!-- Sidebar Menu -->
@@ -422,13 +422,13 @@ $email = $usuario->getEmail();
 <!-- jQuery 2.1.4 -->
 <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="../plugins/fastclick/fastclick.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../dist/js/app.min.js"></script>
+<script src="../js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../dist/js/demo.js"></script>
+<script src="../js/demo.js"></script>
 </body>
 
 </html>

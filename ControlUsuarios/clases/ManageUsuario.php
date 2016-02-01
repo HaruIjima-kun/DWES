@@ -57,7 +57,7 @@ class ManageUsuario {
         
         $parametrosSet = array();
         $parametrosWhere = array();
-
+    
         $parametrosSet['email'] = $usuario->getEmail();
         $parametrosSet['clave'] = $usuario->getClave();
         $parametrosSet['alias'] = $usuario->getAlias();
@@ -117,6 +117,30 @@ class ManageUsuario {
         $registroInicial = ($pagina - 1) * $nrpp;
 
         $this->bd->select($this->tabla, "*", "1=1", array(), $ordenPredeterminado, "$registroInicial, $nrpp");
+
+        $r = array();
+
+        while ($fila = $this->bd->getRow()) {
+            $usuario = new Usuario();
+            $usuario->set($fila);
+
+            $r[] = $usuario;
+        }
+        return $r;//Devuelve un array de Usuarios
+    }
+    
+    function getListPersonal($pagina = 1, $orden = "", $nrpp = Constants::NRPP) {
+        //Valor predeterminado -> Constante, si se lo paso, coge el valor.
+
+        $ordenPredeterminado = "$orden, email, alias, fechaAlta, admin, personal, activo, avatar";
+
+        if ($orden === "" || $orden === null) {
+            $ordenPredeterminado = "email, alias, fechaAlta, admin, personal, activo, avatar";
+        }
+
+        $registroInicial = ($pagina - 1) * $nrpp;
+
+        $this->bd->select($this->tabla, "*", "admin not like 1", array(), $ordenPredeterminado, "$registroInicial, $nrpp");
 
         $r = array();
 

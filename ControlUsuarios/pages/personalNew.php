@@ -29,17 +29,17 @@ function seleccionar($parametro) {
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
-        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="../bootstrap/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
         <!-- Ionicons -->
-        <link rel="stylesheet" href="../bootstrap/css/ionicons.min.css">
+        <link rel="stylesheet" href="../css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="../css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="../bootstrap/css/estilosPersonalizados.css">
+        <link rel="stylesheet" href="../css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="../css/estilosPersonalizados.css">
 
     </head>
 
@@ -89,7 +89,7 @@ function seleccionar($parametro) {
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <form action="#">
+                                            <form action="personalProfile.php">
                                                 <input type="submit" class="btn btn-default btn-flat" value="Perfil">
                                             </form>
                                             <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
@@ -192,11 +192,11 @@ function seleccionar($parametro) {
                                     <h3 class="box-title">Datos de cuenta</h3>
                                 </div>
                                 <!-- /.box-header -->
-<!--                                <div class="alert alert-success alert-dismissable col-md-12" >
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                    <h4>	<i class="icon fa fa-check"></i> ¡Enorabuena!</h4>
-                                    Sus datos han sido modificados satisfactoriamente.
-                                </div>-->
+                                <!--                                <div class="alert alert-success alert-dismissable col-md-12" >
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                                    <h4>	<i class="icon fa fa-check"></i> ¡Enorabuena!</h4>
+                                                                    Sus datos han sido modificados satisfactoriamente.
+                                                                </div>-->
                                 <!-- form start -->
                                 <form role="form" action="phpNewUser.php" method="post" enctype="multipart/form-data">
                                     <div class="box-body form_nuevo">
@@ -445,13 +445,13 @@ function seleccionar($parametro) {
         <!-- jQuery 2.1.4 -->
         <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
         <!-- Bootstrap 3.3.5 -->
-        <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
         <!-- FastClick -->
         <script src="../plugins/fastclick/fastclick.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="../dist/js/app.min.js"></script>
+        <script src="../js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
-        <script src="../dist/js/demo.js"></script>
+        <script src="../js/demo.js"></script>
     </body>
 
 </html>

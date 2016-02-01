@@ -1,4 +1,5 @@
 <?php
+
 /*
  * En este archivo simplemente se cierra la sesión. Básicamente cuando se le da al
  * botón de cerrar sesión.
