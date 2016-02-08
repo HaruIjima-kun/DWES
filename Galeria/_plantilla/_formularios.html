@@ -1,0 +1,41 @@
+<div id="login">
+    <form id="form_inicio_sesion" action="pages/phplogin.php" enctype="multipart/form-data" class="opacity" method="POST">
+        <h2>Iniciar sesión</h2>
+        <input type="text" placeholder="Email" name="user" id="user">
+        <br>
+        <input type="password" placeholder="Contraseña" name="password_login" id="password_login">
+        <br>
+        <div id="divOlvido">
+            <a href="#" id="olvideMiContrasenia">¿Ha olvidado su contraseña?</a>
+        </div>
+        <br>
+        <input type="hidden" name="procedencia" id="procedencia" value="login" />
+        <input id="boton_login" type="submit" value="Iniciar Sesión">
+        <div class="text-center">
+            <br>
+            <p class="text-center" id="pregunta_cuenta">¿No tienes una cuenta?
+                <br/>
+                <a id="enlace_login" href="#">¡Regístrate!</a>
+            </p>
+        </div>
+    </form>
+</div>
+<div id="register">
+    <form id="form_registro" action="pages/phpRegister.php" enctype="multipart/form-data" class="hidden" method="POST">
+        <h2>Registrarse</h2>
+        <input type="email" placeholder="Email" name="email_register" id="email_register">
+        <br>
+        <input type="password" placeholder="Contraseña" name="password1" id="pass1">
+        <br>
+        <input type="password" placeholder="Repita su contraseña" name="password2" id="pass2">
+        <br>
+        <input id="boton_registro" type="submit" value="Registrarse">
+        <div class="text-center">
+            <br>
+            <p class="text-center" id="pregunta_cuenta">¿Ya tienes una cuenta?
+                <br/>
+                <a id="registro" href="#">¡Inicia Sesión!</a>
+            </p>
+        </div>
+    </form>
+</div>

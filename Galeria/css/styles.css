@@ -1,0 +1,56 @@
+#boton_login, #boton_registro, #btn_perfil {
+    color: inherit;
+}
+#boton_login:hover, #boton_registro:hover, #btn_perfil:hover {
+    color: #00D3B7;
+}
+#registro:hover {
+    color: #00D3B7;
+}
+.oculto {
+    display: none;
+}
+.formhead {
+    height: 300px;
+}
+#divOlvido {
+	padding: 12px;
+}
+.hidden {
+    display: none;
+}
+@keyframes opacity {
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    0% {
+        opacity: 0;
+    }
+}
+.opacity {
+    display: block;
+    animation: opacity 0.75s linear;
+}
+
+#facebook_icon:hover {
+	color: #3b5998;
+}
+
+#twitter_icon:hover {
+	color: #00aced;
+}
+
+#instagram_icon:hover {
+	color: #ded1c1;
+}
+
+#flickr_icon:hover {
+	color: #0063dc;
+}
+
+#gmail_icon:hover {
+	color: #00aced;
+}
