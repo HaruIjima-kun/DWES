@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Horario</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="css/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilo.css">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                
+                
+                <div id="divLogin" class="panel panel-default mostrar">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Iniciar Sesión</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="mostrar">
+                            <div class="form-group">
+                                <input id="email" class="form-control" placeholder="Email" name="email" type="email" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input id="clave" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                <div id="mensajeError" class="ocultar">
+                                    <br/>
+                                    <span>Fallo al iniciar sesión.</span>
+                                </div>
+                            </div>
+                            <input type="button" id="btLogin" value="Login" class="btn btn-lg btn-success btn-block" />
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div id="divRespuesta" class="panel panel-default ocultar">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Sesión Iniciada</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Bienvenido <strong id="nom_user_login"></strong></p>
+                        <input type="button" id="btLogout" value="Log Out" class="btn btn-lg btn-danger btn-block" />
+                    </div>
+                </div>
+                
+                
+                <div id="divOperaciones" class="panel panel-default ocultar">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Añadir Evento</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Día:</label>
+                            <select id="select_dia" class="form-control">
+                                <option id="l">Lunes</option>
+                                <option id="m">Martes</option>
+                                <option id="w">Miércoles</option>
+                                <option id="j">Jueves</option>
+                                <option id="v">Viernes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Hora:</label>
+                            <select id="select_hora" class="form-control">
+                                <option id="8">8:15 - 9:15</option>
+                                <option id="9">9:15 - 10:15</option>
+                                <option id="10">10:15 - 11:15</option>
+                                <option id="11">11:15 - 11:45</option>
+                                <option id="12">11:45 - 12:45</option>
+                                <option id="13">12:45 - 13:45</option>
+                                <option id="14">13:45 - 14:45</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <input type="button" id="btAdd" value="Añadir evento" class="btn btn-lg btn-success btn-block" />
+                        <input type="text" id="emailHidden" value="" hidden/>
+                        <input type="text" id="nombreHidden" value="" hidden/>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+            <div class="col-lg-8">
+                <h2>Horario</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Horas</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miércoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>8:15 - 9:15</td>
+                                <td id="l8"></td>
+                                <td id="m8"></td>
+                                <td id="w8"></td>
+                                <td id="j8"></td>
+                                <td id="v8"></td>
+                            </tr>
+                            <tr>
+                                <td>9:15 - 10:15</td>
+                                <td id="l9"></td>
+                                <td id="m9"></td>
+                                <td id="w9"></td>
+                                <td id="j9"></td>
+                                <td id="v9"></td>
+                            </tr>
+                            <tr>
+                                <td>10:15 - 11:15</td>
+                                <td id="l10"></td>
+                                <td id="m10"></td>
+                                <td id="w10"></td>
+                                <td id="j10"></td>
+                                <td id="v10"></td>
+                            </tr>
+                            <tr class="success">
+                                <td>11:15 - 11:45</td>
+                                <td id="l11"></td>
+                                <td id="m11"></td>
+                                <td id="w11"></td>
+                                <td id="j11"></td>
+                                <td id="v11"></td>
+                            </tr>
+                            <tr>
+                                <td>11:45 - 12:45</td>
+                                <td id="l12"></td>
+                                <td id="m12"></td>
+                                <td id="w12"></td>
+                                <td id="j12"></td>
+                                <td id="v12"></td>
+                            </tr>
+                            <tr>
+                                <td>12:45 - 13:45</td>
+                                <td id="l13"></td>
+                                <td id="m13"></td>
+                                <td id="w13"></td>
+                                <td id="j13"></td>
+                                <td id="v13"></td>
+                            </tr>
+                            <tr>
+                                <td>13:45 - 14:45</td>
+                                <td id="l14"></td>
+                                <td id="m14"></td>
+                                <td id="w14"></td>
+                                <td id="j14"></td>
+                                <td id="v14"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+        <script src="js/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="js/metisMenu.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="js/sb-admin-2.js"></script>
+
+        <script src="js/ajax.js"></script>
+        <script src="js/method.ajax.js"></script>
+</body>
+
+</html>
