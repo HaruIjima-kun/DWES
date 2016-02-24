@@ -27,6 +27,7 @@ $ok = json_encode(
         'emailProfesor' => $sqlEmail
     )
 );
+
 $no = json_encode(array('email' => false));
 
 if ($existe == 1) {

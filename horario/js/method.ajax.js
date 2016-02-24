@@ -1,6 +1,7 @@
 window.onload = function() {
 
     (function() {
+        var _usuario = "";
         /* 
             Variables necesarias para iniciar sesión y cerrarla 
         */
@@ -24,7 +25,8 @@ window.onload = function() {
                     if (respuesta.email) {
                         var emailProfesor = respuesta.emailProfesor;
                         var nombreProfesor = respuesta.nombreProfesor;
-                        
+                        _usuario = nombreProfesor;
+
                         document.getElementById("nom_user_login").textContent = nombreProfesor;
                         document.getElementById("emailHidden").value = emailProfesor;
                         document.getElementById("nombreHidden").value = nombreProfesor;
@@ -37,6 +39,7 @@ window.onload = function() {
             };
 
             var ajax = new Ajax();
+
             ajax.setUrl("ajax/ajaxLogueado.php");
             ajax.setRespuesta(procesarRefresco);
             ajax.doPeticion();
@@ -62,19 +65,30 @@ window.onload = function() {
 
                     celda = document.getElementById(idCelda);
                     celda.setAttribute("id_reserva", idReserva);
-                    celda.textContent = nombreProfesor;
 
+                    celda.textContent = nombreProfesor;
                     celda.removeEventListener("dblclick");
                     celda.addEventListener("dblclick", function(e) {
                         var id = this.id;
                         var idReserva = this.getAttribute("id_reserva");
-                        borrar(idReserva, id);
+                        var userEvent = this.textContent;
+
+                        if (userEvent == _usuario) {
+                            var bandera = confirm("¿Está seguro de que desea borrarlo?");
+                            if (bandera) {
+                                borrar(idReserva, id);
+                            }
+                        }
+                        else {
+                            alert("No tienes permisos para borrar esta planificación.");
+                        }
                     }, false);
                 }
             }
         };
 
         var ajax = new Ajax();
+
         ajax.setUrl("ajax/ajaxGetEvents.php");
         ajax.setRespuesta(obtenerHorario);
         ajax.doPeticion();
@@ -87,7 +101,8 @@ window.onload = function() {
                 if (respuesta.email) {
                     var emailProfesor = respuesta.emailProfesor;
                     var nombreProfesor = respuesta.nombreProfesor;
-                    
+                    _usuario = nombreProfesor;
+
                     document.getElementById("nom_user_login").textContent = nombreProfesor;
                     document.getElementById("emailHidden").value = emailProfesor;
                     document.getElementById("nombreHidden").value = nombreProfesor;
@@ -103,6 +118,7 @@ window.onload = function() {
             var ajax = new Ajax();
             var datoUser = encodeURI(user.value);
             var datoPassword = encodeURI(password.value);
+
             ajax.setUrl("ajax/ajaxLogin.php?email=" + datoUser + "&clave=" + datoPassword);
             ajax.setRespuesta(procesarLogin);
             ajax.doPeticion();
@@ -117,6 +133,7 @@ window.onload = function() {
         btLogout.addEventListener("click", function() {
             var procesarLogout = function(respuesta) {
                 if (!respuesta.email) {
+                    _usuario = "";
                     document.getElementById("nom_user_login").textContent = "";
                     document.getElementById("emailHidden").value = "";
                     document.getElementById("nombreHidden").value = "";
@@ -127,6 +144,7 @@ window.onload = function() {
                 }
             };
             var ajax = new Ajax();
+
             ajax.setUrl("ajax/ajaxLogout.php");
             ajax.setRespuesta(procesarLogout);
             ajax.doPeticion();
@@ -159,17 +177,29 @@ window.onload = function() {
                     celdaId = idDia + idHora;
 
                     celda = document.getElementById(celdaId);
+
+
                     celda.setAttribute("id_reserva", idReserva);
                     celda.textContent = nombreProfesor;
 
-                    //celda.removeEventListener("dblclick");
-
+                    // Doble click para borrar
                     celda.addEventListener("dblclick", function(e) {
                         var id = this.id;
                         var idReserva = this.getAttribute("id_reserva");
-                        borrar(idReserva, id);
-                    }, false);
+                        var userEvent = this.textContent;
 
+                        if (userEvent == _usuario) {
+                            var bandera = confirm("¿Está seguro de que desea borrarlo?");
+                            if (bandera) {
+                                borrar(idReserva, id);
+                            }
+                        }
+                        else {
+                            alert("No tienes permisos para borrar esta planificación.");
+                        }
+                    }, false);
+                } else {
+                    alert("Esa hora ya está ocupada, seleccione otra.");
                 }
             };
 
@@ -178,8 +208,6 @@ window.onload = function() {
             var datoHora = encodeURI(selectHora.options[selectHora.selectedIndex].getAttribute('id'));
             var datoEmail = encodeURI(emailHidden.value);
             var datoNombre = encodeURI(nombreHidden.value);
-
-            //alert("Dia: " + datoDia + " Hora: " + datoHora + " Email: " + datoEmail + " Nombre: " + datoNombre);
 
             ajax.setUrl("ajax/ajaxAddEvento.php?dia=" + datoDia + "&hora=" + datoHora +
                 "&email=" + datoEmail + "&nombre=" + datoNombre);
@@ -196,6 +224,7 @@ window.onload = function() {
                 }
             }
             var ajax = new Ajax();
+
             ajax.setUrl("ajax/ajaxDeleteEvento.php?id_reserva=" + idReserva);
             ajax.setRespuesta(procesarBorrado);
             ajax.doPeticion();

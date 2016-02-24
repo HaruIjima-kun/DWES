@@ -7,8 +7,6 @@ $logueado = $sesion->isLogged();
 //$ok = json_encode(array('email' => true));
 $no = json_encode(array('email' => false));
 
-
-
 if ($logueado) {
     $usuario = $sesion->getUser();
 

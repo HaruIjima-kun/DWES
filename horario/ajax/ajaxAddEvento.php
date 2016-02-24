@@ -19,8 +19,11 @@ if ($sesion->isLogged()) {
     
     $condicion = 'dia like "' . $dia . '" and hora like "' . $hora . '" and nombre like "' . $nombre . '"';
     
+    $condicionExistencia = 'dia like "' . $dia . '" and hora like "' . $hora . '"';
+    
     $existe = $gestor->count($condicion);
-    if ($existe == 0) {
+    $existeDuplicado = $gestor->count($condicionExistencia);
+    if ($existe == 0 && $existeDuplicado == 0) {
         $reserva = new Reservas("", $nombre, $dia, $hora);
         $r = $gestor->insert($reserva);
         $bd->close();
@@ -30,7 +33,6 @@ if ($sesion->isLogged()) {
         echo $respuesta;
     } else {
         echo $no;
-        
     }
 } else {
     echo $no;
