@@ -13,7 +13,6 @@ $gestor = new ManageUsuario($bd);
 $sesion = new Session();
 
 if (isset($procedencia)) {
-    echo "por qué entro aqui";
     if ($procedencia === "registro") {
         
     $email = Request::post("email");
@@ -21,8 +20,8 @@ if (isset($procedencia)) {
 } else {
     /*     * * Recogida de datos del formulario * * */
 
-    echo $alias = Request::post("user");
-    echo $password = Request::post("password_login");
+    $alias = Request::post("user");
+    $password = Request::post("password_login");
     
 
     /*     * * Encriptación de la contraseña * * */

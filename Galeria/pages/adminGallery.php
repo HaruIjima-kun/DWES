@@ -131,17 +131,6 @@ $activo = $usuario->getActivo();
                         </div>
                     </div>
 
-                    <!-- search form (Optional) -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                            <span class="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
-
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu">
                         <li class="header">Menú de navegación</li>
@@ -220,7 +209,7 @@ $activo = $usuario->getActivo();
                                             <label for="avatarNuevo">Imagen</label>
                                             <input type="file" id="imagenGaleria" name="imagenGaleria" accept="image/*">
                                         </div>
-                                        <input hidden="" type="text" id="pkEmail" name="pkEmail" value="<?php echo $email; ?>">
+                                        <input hidden="" type="text" id="pkEmail" name="pkEmail" value="<?php echo $emailSesion; ?>">
                                         <input hidden="" type="text" id="paginaAnterior" name="paginaAnterior" value="admin">
                                     </div>
                                     <!-- /.box-body -->

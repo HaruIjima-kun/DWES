@@ -17,7 +17,7 @@ class ManageImagenes {
 
         $fila = $this->bd->getRow();
 
-        $imagenes = new Imagenes($fila[0], $fila[1], $fila[2], $fila[3]);
+        $imagenes = new Imagenes($fila[0], $fila[1], $fila[2], $fila[3], $fila[4]);
 
         return $imagenes;
     }
@@ -57,7 +57,7 @@ class ManageImagenes {
     
     function insert(Imagenes $imagen) {
         $parametros = array();
-
+        
         $parametros['email'] = $imagen->getEmail();
         $parametros['titulo'] = $imagen->getTitulo();
         $parametros['descripcion'] = $imagen->getDescripcion();
@@ -67,10 +67,10 @@ class ManageImagenes {
     }
 
     function getList($pagina = 1, $orden = "", $nrpp = Constants::NRPP) {
-        $ordenPredeterminado = "$orden, email, titulo, descripcion, imagen";
+        $ordenPredeterminado = "$orden, id, email, titulo, descripcion, imagen";
 
         if ($orden === "" || $orden === null) {
-             $ordenPredeterminado = "email, titulo, descripcion, imagen";
+             $ordenPredeterminado = "id, email, titulo, descripcion, imagen";
         }
 
         $registroInicial = ($pagina - 1) * $nrpp;
@@ -80,34 +80,12 @@ class ManageImagenes {
         $r = array();
 
         while ($fila = $this->bd->getRow()) {
-            $imagen = new Usuario();
+            $imagen = new Imagenes();
             $imagen->set($fila);
 
             $r[] = $imagen;
         }
         return $r;//Devuelve un array de Imagenes
-    }
-    
-    function getListPersonal($pagina = 1, $orden = "", $nrpp = Constants::NRPP) {
-        $ordenPredeterminado = "$orden, email, alias, fechaAlta, admin, personal, activo, avatar";
-
-        if ($orden === "" || $orden === null) {
-            $ordenPredeterminado = "email, alias, fechaAlta, admin, personal, activo, avatar";
-        }
-
-        $registroInicial = ($pagina - 1) * $nrpp;
-
-        $this->bd->select($this->tabla, "*", "admin not like 1", array(), $ordenPredeterminado, "$registroInicial, $nrpp");
-
-        $r = array();
-
-        while ($fila = $this->bd->getRow()) {
-            $usuario = new Usuario();
-            $usuario->set($fila);
-
-            $r[] = $usuario;
-        }
-        return $r;
     }
 
     function getValuesSelect() {

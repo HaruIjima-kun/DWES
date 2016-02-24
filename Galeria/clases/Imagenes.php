@@ -2,13 +2,18 @@
 
 class Imagenes {
 
-    private $email, $titulo, $descripcion, $imagen;
+    private $id, $email, $titulo, $descripcion, $imagen;
 
-    function __construct($email, $titulo, $descripcion, $imagen) {
+    function __construct($id = "", $email = "", $titulo = "", $descripcion = "", $imagen = "") {
+        $this->id = $id;
         $this->email = $email;
         $this->titulo = $titulo;
         $this->descripcion = $descripcion;
         $this->imagen = $imagen;
+    }
+    
+    function getId() {
+        return $this->id;
     }
 
     function getEmail() {
@@ -25,6 +30,10 @@ class Imagenes {
 
     function getImagen() {
         return $this->imagen;
+    }
+    
+    function setId($id) {
+        $this->id = $id;
     }
 
     function setEmail($email) {

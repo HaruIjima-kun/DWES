@@ -14,19 +14,6 @@ $aliasSesion = $usuario->getAlias(); // Saca el alias del usuario de la sesión
 $avatarSesion = $usuario->getAvatar(); // Saca el avatar del usuario de la sesión
 $emailSesion = $usuario->getEmail(); // Saca el email del usuario de la sesión
 
-$admin = $usuario->getAdministrador();
-$personal = $usuario->getPersonal();
-$activo = $usuario->getActivo();
-
-function tipoUsuario() {
-    if ($admin === 1) {
-        return echo "Admin";
-    } else if ($personal === 1) {
-        return echo "Personal";
-    } else if ($usuario === 1) {
-        return echo " User";
-    }
-}
 ?>
 
 
@@ -36,7 +23,7 @@ function tipoUsuario() {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminUSERS - Nueva entrada</title>
+        <title>PersonalUSERS - Nueva entrada</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
@@ -60,11 +47,11 @@ function tipoUsuario() {
             <header class="main-header">
 
                 <!-- Logo -->
-                <a href="adminProfile.php" class="logo">
+                <a href="personalProfile.php" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>A</b>LT</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Admin</b>USERS</span>
+                    <span class="logo-lg"><b>Personal</b>USERS</span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -100,7 +87,7 @@ function tipoUsuario() {
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <form action="adminProfile.php">
+                                            <form action="personalProfile.php">
                                                 <input type="submit" class="btn btn-default btn-flat" value="Perfil">
                                             </form>
                                             <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
@@ -140,17 +127,6 @@ function tipoUsuario() {
                         </div>
                     </div>
 
-                    <!-- search form (Optional) -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                            <span class="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
-
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu">
                         <li class="header">Menú de navegación</li>
@@ -159,15 +135,15 @@ function tipoUsuario() {
                         <li class="treeview">
                             <a href="#"><i class="fa fa-user"></i> <span>Perfil</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a href="adminProfile.php">Mi perfil</a></li>
-                                <li><a href="adminEdit.php">Editar</a></li>
+                                <li><a href="personalProfile.php">Mi perfil</a></li>
+                                <li><a href="personalEdit.php">Editar</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a href="adminNew.php">Nuevo Usuario</a></li>
-                                <li><a href="adminView.php">Visualizar</a></li>
+                                <li><a href="personalNew.php">Nuevo Usuario</a></li>
+                                <li><a href="personalView.php">Visualizar</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -189,12 +165,12 @@ function tipoUsuario() {
                 <section class="content-header">
                     <h1>
                         <?php echo $alias ?>
-                        <small>Editar perfil</small>
+                        <small>Nueva entrada</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Usuarios</a></li>
-                        <li class="active">Editar</li>
+                        <li><a href="#">Galería</a></li>
+                        <li class="active">Nueva entrada</li>
                     </ol>
                 </section>
 
@@ -215,38 +191,28 @@ function tipoUsuario() {
                                     Sus datos han sido modificados satisfactoriamente.
                                 </div>-->
                                 <!-- form start -->
-                                <form role="form" action="phpUpdateUser.php" method="post" enctype="multipart/form-data">
+                                <form role="form" action="phpNuevaEntrada.php" method="post" enctype="multipart/form-data">
                                     <div class="box-body form_nuevo">
-                                        <div class="form-group col-md-4">
-                                            <label for="alias">Alias</label>
-                                            <input type="text" class="form-control" id="alias" name="aliasEdit" placeholder="Enter email" value="<?php echo $alias; ?>">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="exampleInputEmail1">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="emailEdit" name="emailEdit" placeholder="Enter email" value="<?php echo $email; ?>">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="exampleInputPassword1">Contraseña</label>
-                                            <input type="password" class="form-control" id="passwordEdit" name="passwordEdit" placeholder="Password">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="exampleInputPassword1">Confirmar contraseña</label>
-                                            <input type="password" id="passwordEdit2" class="form-control" id="passwordEdit2" placeholder="Password">
+                                        <div class="form-group col-md-12">
+                                            <label for="alias">Título</label>
+                                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Enter title">
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label for="avatarNuevo">Avatar</label>
-                                            <input type="file" id="avatarNuevo" name="avatarNuevo" accept="image/*">
+                                            <label for="descripcion">Descripción</label>
+                                            <textarea class="form-control" rows="3" id="descripcion" name="descripcion" placeholder="Enter description"></textarea>
                                         </div>
-                                        
-                                        <input hidden="" type="text" id="pkAlias" name="pkAlias" value="<?php echo $alias; ?>"> 
-                                        <input hidden="" type="text" id="pkEmail" name="pkEmail" value="<?php echo $email; ?>">
-                                        <input hidden="" type="text" id="pkFechaAlta" name="pkFechaAlta" value="<?php echo $fechaalta; ?>">
+                                        <div class="form-group col-md-12">
+                                            <label for="avatarNuevo">Imagen</label>
+                                            <input type="file" id="imagenGaleria" name="imagenGaleria" accept="image/*">
+                                        </div>
+                                        <input hidden="" type="text" id="pkEmail" name="pkEmail" value="<?php echo $emailSesion; ?>">
+                                        <input hidden="" type="text" id="paginaAnterior" name="paginaAnterior" value="personal">
                                     </div>
                                     <!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-default boton_cancelar_form_nuevo">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="reset" class="btn btn-default boton_cancelar_form_nuevo">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Publicar</button>
                                     </div>
                                 </form>
                             </div>

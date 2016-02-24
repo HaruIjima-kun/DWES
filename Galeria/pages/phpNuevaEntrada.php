@@ -23,7 +23,7 @@ if ($nombre_archivo == null) {
 
 $ruta_nombre_archivo = $destino . $nombre_archivo;
 
-$subir = new FileUpload("avatar"); // Crear objeto FileUpload
+$subir = new FileUpload("imagenGaleria"); // Crear objeto FileUpload
 $subir->setNombre($nombre_archivo); // Seteamos el nombre del archivo
 $subir->setDestino($destino); // Seteamos el directorio del archivo
 
@@ -41,16 +41,9 @@ if ($subir->upload()) {
     echo 'Archivo no subido';
 }
 
-$sqlResultado = $gestor->count("email like '" . $email . "'");
+echo $sqlResultado = $gestor->count("email like '" . $email . "'");
 
-if ($sqlResultado[0] == 0) {
-    $imagen = new Imagenes($email, $titulo, $descripcion, $ruta_nombre_archivo);
-    echo "el usuario existe";
+    $imagen = new Imagenes("",$email, utf8_encode($titulo), utf8_encode($descripcion), $ruta_nombre_archivo);
     $gestor->insert($imagen);
     $redireccion = $paginaAnterior . "Gallery.php";
-    //$sesion->sendRedirect($redireccion);
-} else {
-    echo "el usuario no existe";
-    $redireccion = $paginaAnterior . "Gallery.php";
-    //$sesion->sendRedirect($redireccion);
-}
+    $sesion->sendRedirect($redireccion);

@@ -22,7 +22,9 @@ class Controlador {
         $pagina = file_get_contents('./_plantilla/_principal.html');
 
         $formularios = file_get_contents('./_plantilla/_formularios.html');
-        $miniaturas = file_get_contents('./_plantilla/_miniaturas.html');
+        ob_start();
+        include "./_plantilla/_miniaturas.php";
+        $miniaturas = ob_get_clean();
         $footer = file_get_contents('./_plantilla/_footer.html');
 
         $datos = array(
@@ -40,13 +42,16 @@ class Controlador {
     
     function metodo1() {
         $pagina = file_get_contents('./_plantilla/_principal.html');
+        
         ob_start();
         include "./_plantilla/_user.php";
         $formularios = ob_get_clean();
-        
 
-        //$formularios = file_get_contents('./_plantilla/_user.php');
-        $miniaturas = file_get_contents('./_plantilla/_miniaturas.html');
+        ob_start();
+        include "./_plantilla/_miniaturas.php";
+        $miniaturas = ob_get_clean();
+
+        //$miniaturas = file_get_contents('./_plantilla/_miniaturas.html');
         
         $footer = file_get_contents('./_plantilla/_footer.html');
 

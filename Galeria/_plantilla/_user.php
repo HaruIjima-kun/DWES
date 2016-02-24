@@ -17,4 +17,7 @@
     <form method="post" action="pages/phpControl.php">
         <input id="btn_perfil" type="submit" value="Perfil">
     </form>
+    <form method="post" action="pages/phplogout.php">
+        <input id="btn_perfil" type="submit" value="Cerrar sesión">
+    </form>
 </div>	

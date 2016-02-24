@@ -100,6 +100,7 @@ class DataBase {
     function insert($tabla, $parametros = array(), $auto = true) {
         $campos = "";
         $valores = "";
+        
         foreach ($parametros as $nombreParametros => $valorParametro) {
             $campos .= $nombreParametros . ",";
             $valores .= ":" . $nombreParametros . ",";

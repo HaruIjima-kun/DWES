@@ -23,9 +23,7 @@ $email = Request::post("email_register");
 $password = Request::post("password2");
 
 $strPos = strpos($email, "@");
-
 $alias = substr($email, 0, $strPos); //El alias se extrae del correo electrónico
-
 
 /* * ** Encriptación de la contraseña *** */
 
@@ -42,22 +40,23 @@ if ($sqlResultado[0] == 0) {
     $sesion->setUser($usuario);
     $gestor->insert($usuario);
     
-    $claveActivacion = sha1($password + Constants::SEMILLA);
+    $claveActivacion = sha1($passEncriptada + Constants::SEMILLA);
     
     $correo = new Correo();
     
     $destino = $email;
-    
     $asunto = "Activación de su cuenta";
     $mensaje = "Este es un correo de activación.
     
-    Diríjase a la siguiente URL para activar su cuenta: https://galeria-haruijima-kun.c9users.io/pages/phpActivateUser.php?activate=$claveActivacion&email=$email";
+Diríjase a la siguiente URL para activar su cuenta: https://galeria-haruijima-kun.c9users.io/pages/phpActivateUser.php?activate=$claveActivacion&email=$email";
     
     $correo->setDestino($destino);
     $correo->setAsunto($asunto);
     $correo->setMensaje($mensaje);
     
     $correo->send();
+    $sesion->destroy();
+    $sesion->sendRedirect("../index.php");
 } else {
     $sesion->destroy();
     $sesion->sendRedirect("../index.php");

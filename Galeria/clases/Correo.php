@@ -7,9 +7,9 @@ class Correo {
         $this->cliente = new Google_Client();
         
         $this->cliente->setApplicationName('loginusuarios-1194');
-        $this->cliente->setClientId('847638643820-6812a4fb4q3id389vadglb15k87ajteg.apps.googleusercontent.com');
-        $this->cliente->setClientSecret('qhsGzcAHhbPkDQY8mo_-nhit');
-        $this->cliente->setRedirectUri('https://login-usuario-haruijima-kun.c9users.io/');
+        $this->cliente->setClientId('847638643820-5844if1idbi4m25p2b1s2rcvqqbmrbdl.apps.googleusercontent.com');
+        $this->cliente->setClientSecret('QY3ld-E_4kz7RAUiuPAUhWvU');
+        $this->cliente->setRedirectUri('https://galeria-haruijima-kun.c9users.io/');
         $this->cliente->setScopes('https://www.googleapis.com/auth/gmail.compose');
         $this->cliente->setAccessToken(file_get_contents('../oauth/token.conf'));
         $this->origen= $origen;
