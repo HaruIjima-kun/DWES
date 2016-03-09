@@ -6,9 +6,10 @@
 require '../clases/AutoCarga.php';
 
 $sesion= new Session();
-if(!$sesion){
+
+if (!$sesion->isLogged()) {
     header( "Location:../index.php");
-} 
+}
 
 $usuario = $sesion->getUser();
 $alias = $usuario->getAlias();
@@ -110,6 +111,12 @@ function translateBoolean($valor){
                                         </form>
                                         <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
                                     </div>
+                                    <div class="pull-left">
+                                            <form action="../index.php">
+                                                <input type="submit" class="btn btn-default btn-flat" value="Galería">
+                                            </form>
+                                            <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
+                                        </div>
                                     <div class="pull-right">
                                         <form method="post" action="phplogout.php" enctype="multipart/form-data">
                                             <input type="submit" class="btn btn-default btn-flat" value="Cerrar sesión">
@@ -228,26 +235,26 @@ function translateBoolean($valor){
                                             <td>
                                                 <?php
                                                     $bool1 = $usuario->getAdministrador();
-                                                    //$res1 = translateBoolean($bool1);
-                                                    //echo $res1;
-                                                    echo $bool1;
+                                                    $res1 = translateBoolean($bool1);
+                                                    echo $res1;
+                                                    //echo $bool1;
                                                 ?>
                                             </td>
                                             <td>
                                                 <?php 
                                                     
                                                     $bool2 = $usuario->getPersonal();
-                                                    //$res2 = translateBoolean($bool2);
-                                                    //echo $res2;
-                                                    echo $bool2;
+                                                    $res2 = translateBoolean($bool2);
+                                                    echo $res2;
+                                                    //echo $bool2;
                                                 ?>
                                             </td>
                                             <td>
                                                 <?php
                                                     $bool3 = $usuario->getActivo();
-                                                    //$res3 = translateBoolean($bool3);
-                                                    //echo $res3;
-                                                    echo $bool3;
+                                                    $res3 = translateBoolean($bool3);
+                                                    echo $res3;
+                                                    //echo $bool3;
                                                 ?>
                                             </td>
                                             <td><?php echo $usuario->getAvatar(); ?></td>
@@ -300,7 +307,7 @@ function translateBoolean($valor){
                 <b>Version</b> 2.3.0
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2015 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
+            <strong>Copyright &copy; 2016 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
         </footer>
 
         <!-- Control Sidebar -->
@@ -499,7 +506,7 @@ function translateBoolean($valor){
     <!-- AdminLTE for demo purposes -->
     <script src="../js/demo.js"></script>
     <!-- page script -->
-    <script type="text/javascript" src="../js/confirmDelete.js"></script>
+   <!-- <script type="text/javascript" src="../js/confirmDelete.js"></script>-->
     <script>
         $(function() {
             $("#example1").DataTable();

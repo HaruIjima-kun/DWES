@@ -3,6 +3,10 @@ require '../clases/AutoCarga.php';
 
 $sesion = new Session();
 
+if (!$sesion->isLogged()) {
+    header( "Location:../index.php");
+}
+
 $usuario = $sesion->getUser();
 
 $alias = $usuario->getAlias();
@@ -86,6 +90,12 @@ $email = $usuario->getEmail();
                                         <div class="pull-left">
                                             <form action="#">
                                                 <input type="submit" class="btn btn-default btn-flat" value="Perfil">
+                                            </form>
+                                            <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
+                                        </div>
+                                        <div class="pull-left">
+                                            <form action="../index.php">
+                                                <input type="submit" class="btn btn-default btn-flat" value="Galería">
                                             </form>
                                             <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
                                         </div>
@@ -234,7 +244,6 @@ $email = $usuario->getEmail();
 
         </section>
         <!-- /.content -->
-    </div>
     <!-- Main Footer -->
     <footer class="main-footer">
         <!-- To the right -->
@@ -242,7 +251,7 @@ $email = $usuario->getEmail();
             <b>Version</b> 2.3.0
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
+        <strong>Copyright &copy; 2016 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
     </footer>
 
     <!-- Control Sidebar -->

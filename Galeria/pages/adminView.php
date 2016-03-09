@@ -2,9 +2,10 @@
 require '../clases/AutoCarga.php';
 
 $sesion= new Session();
-if(!$sesion){
+
+if (!$sesion->isLogged()) {
     header( "Location:../index.php");
-} 
+}
 
 $usuario = $sesion->getUser();
 $alias = $usuario->getAlias();
@@ -43,6 +44,7 @@ function translateBoolean($valor){
     <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../css/sweetalert2.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../css/skins/_all-skins.min.css">
@@ -106,6 +108,12 @@ function translateBoolean($valor){
                                         </form>
                                         <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
                                     </div>
+                                    <div class="pull-left">
+                                            <form action="../index.php">
+                                                <input type="submit" class="btn btn-default btn-flat" value="Galería">
+                                            </form>
+                                            <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
+                                        </div>
                                     <div class="pull-right">
                                         <form method="post" action="phplogout.php" enctype="multipart/form-data">
                                             <input type="submit" class="btn btn-default btn-flat" value="Cerrar sesión">
@@ -224,42 +232,41 @@ function translateBoolean($valor){
                                             <td>
                                                 <?php
                                                     $bool1 = $usuario->getAdministrador();
-                                                    //$res1 = translateBoolean($bool1);
-                                                    //echo $res1;
-                                                    echo $bool1;
+                                                    $res1 = translateBoolean($bool1);
+                                                    echo $res1;
+                                                    //echo $bool1;
                                                 ?>
                                             </td>
                                             <td>
                                                 <?php 
                                                     
                                                     $bool2 = $usuario->getPersonal();
-                                                    //$res2 = translateBoolean($bool2);
-                                                    //echo $res2;
-                                                    echo $bool2;
+                                                    $res2 = translateBoolean($bool2);
+                                                    echo $res2;
+                                                    //echo $bool2;
                                                 ?>
                                             </td>
                                             <td>
                                                 <?php
                                                     $bool3 = $usuario->getActivo();
-                                                    //$res3 = translateBoolean($bool3);
-                                                    //echo $res3;
-                                                    echo $bool3;
+                                                    $res3 = translateBoolean($bool3);
+                                                    echo $res3;
+                                                    //echo $bool3;
                                                 ?>
                                             </td>
                                             <td><?php echo $usuario->getAvatar(); ?></td>
                                             
                                             
                                             <td>
-                                               <form action="adminEdit.php" method="post" enctype="multipart/form-data" class="">
+                                                <form action="adminEdit.php" method="post" enctype="multipart/form-data" class="">
                                                    <input type="hidden" name="procedencia" value="editView"/>
                                                    <button type="submit" value="<?php echo $usuario->getAlias(); ?>" class="editar" name="editTable"><i class="fa fa-pencil editar"></i></button>
                                                 </form>
                                             </td>
                                             <td>
-                                                <form action="phpDelete.php" method="post" enctype="multipart/form-data" class="">
+                                                <form action="phpDelete.php" method="post" enctype="multipart/form-data" class="" id="form_delete_user">
                                                     <input type="hidden" name="procedencia" value="adminView"/>
                                                     <button type="submit" value="<?php echo $usuario->getEmail(); ?>" class="borrar" name="deleteTable"><i class="fa fa-trash borrar"></i></button>
-                                                    
                                                 </form> 
                                             </td>
                                         </tr>
@@ -296,7 +303,7 @@ function translateBoolean($valor){
                 <b>Version</b> 2.3.0
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2015 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
+            <strong>Copyright &copy; 2016 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
         </footer>
 
         <!-- Control Sidebar -->
@@ -495,20 +502,9 @@ function translateBoolean($valor){
     <!-- AdminLTE for demo purposes -->
     <script src="../js/demo.js"></script>
     <!-- page script -->
+    <script type="text/javascript" src="../js/sweetalert2.min.js"></script>
     <script type="text/javascript" src="../js/confirmDelete.js"></script>
-    <script>
-        $(function() {
-            $("#example1").DataTable();
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-        });
-    </script>
+    
 </body>
 
 </html>

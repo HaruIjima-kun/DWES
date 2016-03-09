@@ -56,10 +56,10 @@ Diríjase a la siguiente URL para activar su cuenta: https://galeria-haruijima-k
     
     $correo->send();
     $sesion->destroy();
-    $sesion->sendRedirect("../index.php");
+    $sesion->sendRedirect("registered.html");
 } else {
     $sesion->destroy();
-    $sesion->sendRedirect("../index.php");
+    $sesion->sendRedirect("noRegistered.html");
 }
 
 

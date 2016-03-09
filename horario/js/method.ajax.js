@@ -68,7 +68,7 @@ window.onload = function() {
 
                     celda.textContent = nombreProfesor;
                     celda.removeEventListener("dblclick");
-                    celda.addEventListener("dblclick", function(e) {
+                    celda.addEventListener("dblclick", function addEvento(e) {
                         var id = this.id;
                         var idReserva = this.getAttribute("id_reserva");
                         var userEvent = this.textContent;
@@ -76,6 +76,7 @@ window.onload = function() {
                         if (userEvent == _usuario) {
                             var bandera = confirm("¿Está seguro de que desea borrarlo?");
                             if (bandera) {
+                                celda.removeEventListener("dblclick", addEvento, false);
                                 borrar(idReserva, id);
                             }
                         }
@@ -164,7 +165,7 @@ window.onload = function() {
         emailHidden = document.getElementById("emailHidden");
         nombreHidden = document.getElementById("nombreHidden");
 
-        btAdd.addEventListener("click", function() {
+        btAdd.addEventListener("click", function addEvento() {
             var procesarInsert = function(respuesta) {
                 if (respuesta.insert > 0) {
                     var idDia, idHora, nombreProfesor, celdaId, celda, idReserva;
@@ -183,7 +184,7 @@ window.onload = function() {
                     celda.textContent = nombreProfesor;
 
                     // Doble click para borrar
-                    celda.addEventListener("dblclick", function(e) {
+                    celda.addEventListener("dblclick", function addEvento(e) {
                         var id = this.id;
                         var idReserva = this.getAttribute("id_reserva");
                         var userEvent = this.textContent;
@@ -191,6 +192,7 @@ window.onload = function() {
                         if (userEvent == _usuario) {
                             var bandera = confirm("¿Está seguro de que desea borrarlo?");
                             if (bandera) {
+                                celda.removeEventListener("dblclick", addEvento, false);
                                 borrar(idReserva, id);
                             }
                         }

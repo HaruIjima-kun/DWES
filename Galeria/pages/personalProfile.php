@@ -3,6 +3,10 @@ require '../clases/AutoCarga.php';
 
 $sesion = new Session();
 
+if (!$sesion->isLogged()) {
+    header( "Location:../index.php");
+}
+
 $usuario = $sesion->getUser();
 
 $alias = $usuario->getAlias();
@@ -86,6 +90,12 @@ $email = $usuario->getEmail();
                                         <div class="pull-left">
                                             <form action="#">
                                                 <input type="submit" class="btn btn-default btn-flat" value="Perfil">
+                                            </form>
+                                            <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
+                                        </div>
+                                        <div class="pull-left">
+                                            <form action="../index.php">
+                                                <input type="submit" class="btn btn-default btn-flat" value="Galería">
                                             </form>
                                             <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
                                         </div>
@@ -185,40 +195,6 @@ $email = $usuario->getEmail();
                                 <!-- /.box-body -->
                             </div>
                             <!-- /.box -->
-
-                            <!-- About Me Box -->
-                            <!--<div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">About Me</h3>
-                                </div>-->
-                            <!-- /.box-header -->
-                            <!--<div class="box-body">
-                                <strong><i class="fa fa-book margin-r-5"></i>  Education</strong>
-                                <p class="text-muted">
-                                    B.S. in Computer Science from the University of Tennessee at Knoxville
-                                </p>
-
-                                <hr>
-
-                                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                                <p class="text-muted">Malibu, California</p>
-
-                                <hr>
-
-                                <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-                                <p>
-                                    <span class="label label-danger">UI Design</span>
-                                    <span class="label label-success">Coding</span>
-                                    <span class="label label-info">Javascript</span>
-                                    <span class="label label-warning">PHP</span>
-                                    <span class="label label-primary">Node.js</span>
-                                </p>
-
-                                <hr>
-
-                                <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                            </div>-->
                             <!-- /.box-body -->
                         </div>
                         <!-- /.box -->
@@ -229,7 +205,7 @@ $email = $usuario->getEmail();
 
         </section>
         <!-- /.content -->
-    </div>
+  
     <!-- Main Footer -->
     <footer class="main-footer">
         <!-- To the right -->
@@ -237,7 +213,7 @@ $email = $usuario->getEmail();
             <b>Version</b> 2.3.0
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
+        <strong>Copyright &copy; 2016 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
     </footer>
 
     <!-- Control Sidebar -->

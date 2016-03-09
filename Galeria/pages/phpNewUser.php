@@ -47,7 +47,7 @@ $nombre_archivo = $_FILES["avatar"]["name"]; //Coger avatar de $_FILES
 $destino = "../img/";
 
 if ($nombre_archivo == null) {
-    $nombre_archivo = "avatar04.jpg";
+    $nombre_archivo = "avatar04.png";
 }
 
 $ruta_nombre_archivo = $destino . $nombre_archivo;

@@ -131,14 +131,10 @@ if ($subir->upload()) {
 $usuario = new Usuario($emailNuevo, $passEncriptada, $aliasNuevo, $fechaalta, $admin, $personal, $activo, $ruta_nombre_archivo);
 
 if(isset($_SESSION["procedencia"]) && $sesion->get("procedencia") === "editView"){
-    var_dump($usuario);
-    echo "<br> Ha entrado en el usuario de la tabla<br>";
     $gestor->setForAdmin($usuario, $pkAlias);
     $sesion->sendRedirect("phpControl.php");
 } else {
-    var_dump($usuario);
     $gestor->setForAdmin($usuario, $pkAlias);
-    echo "<br> Ha entrado en el usuario<br>";
     $sqlUsuario = $gestor->get($aliasNuevo);
     $sqlEmail = $sqlUsuario->getEmail();            // Email
     $sqlAlias = $sqlUsuario->getAlias();            // Alias

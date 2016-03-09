@@ -1,6 +1,10 @@
 <?php require '../clases/AutoCarga.php';
 $sesion = new Session();
 
+if (!$sesion->isLogged()) {
+    header( "Location:../index.php");
+}
+
 $usuario= $sesion->getUser();
 $alias = $usuario->getAlias();
 $avatar = $usuario->getAvatar();
@@ -92,6 +96,12 @@ function seleccionar($parametro) {
                                         </form>
                                         <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
                                     </div>
+                                    <div class="pull-left">
+                                            <form action="../index.php">
+                                                <input type="submit" class="btn btn-default btn-flat" value="Galería">
+                                            </form>
+                                            <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
+                                        </div>
                                     <div class="pull-right">
                                         <form method="post" action="phplogout.php" enctype="multipart/form-data">
                                             <input type="submit" class="btn btn-default btn-flat" value="Cerrar sesión">
@@ -259,7 +269,7 @@ function seleccionar($parametro) {
                 <b>Version</b> 2.3.0
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2015 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
+            <strong>Copyright &copy; 2016 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
         </footer>
 
         <!-- Control Sidebar -->

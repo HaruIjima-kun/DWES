@@ -28,8 +28,8 @@ if ($claveGenerada === $claveConfirmacion && $activo == 0) {
     $user->setActivo(1);
     $gestor->setForAdmin($user, $alias);
     $sesion->destroy();
-    $sesion->sendRedirect("../index.php");
+    $sesion->sendRedirect("activated.html");
 } else {
     $sesion->destroy();
-    $sesion->sendRedirect("../index.php");
+    $sesion->sendRedirect("noActivated.html");
 }

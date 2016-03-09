@@ -5,9 +5,9 @@ $sesion = new Session();
 $bd = new DataBase();
 $gestor = new ManageUsuario($bd);
 
-if(!$sesion){
-    header("Location:../index.php");
-} 
+if (!$sesion->isLogged()) {
+    header( "Location:../index.php");
+}
 
 $usuario = $sesion->getUser();
 $aliasSesion = $usuario->getAlias();
@@ -129,6 +129,12 @@ function seleccionar($parametro) {
                                         <div class="pull-left">
                                             <form action="personalProfile.php">
                                                 <input type="submit" class="btn btn-default btn-flat" value="Perfil">
+                                            </form>
+                                            <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
+                                        </div>
+                                        <div class="pull-left">
+                                            <form action="../index.php">
+                                                <input type="submit" class="btn btn-default btn-flat" value="Galería">
                                             </form>
                                             <!--<a href="pages/examples/profile.html" class="btn btn-default btn-flat">Perfil</a>-->
                                         </div>
@@ -292,7 +298,7 @@ function seleccionar($parametro) {
                     <b>Version</b> 2.3.0
                 </div>
                 <!-- Default to the left -->
-                <strong>Copyright &copy; 2015 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
+                <strong>Copyright &copy; 2016 by <a href="#">Jose A. Martín</a>.</strong> Todos los derechos reservados.
             </footer>
 
             <!-- Control Sidebar -->
